@@ -8,10 +8,10 @@
     <style>
         :root {
             --bg-color: #F7F8F8;
-            --omeshicha: #43676B; /* 御召茶 */
-            --ginnezumi: #91989F; /* 銀鼠 */
-            --shinsyu: #D93444;   /* 真朱 */
-            --soft-black: #333333; /* 淡黑色 */
+            --omeshicha: #43676B; 
+            --ginnezumi: #91989F; 
+            --shinsyu: #D93444;   
+            --soft-black: #333333; 
         }
 
         body, html {
@@ -80,13 +80,21 @@
 
         .close-btn { position: sticky; top: 0; float: right; background: none; border: none; font-size: 24px; cursor: pointer; color: #ccc; }
 
-        /* 信件內文樣式調整 */
+        /* 信件內文樣式核心 */
         .letter-body { font-size: 14px; color: var(--soft-black); white-space: pre-line; }
-        .color-main { color: var(--omeshicha); }
-        .color-date { color: var(--shinsyu); font-weight: bold; }
-        .color-sub-small { color: var(--ginnezumi); font-size: 12px; } /* 灰色且字小 */
-        .letter-footer { margin-top: 30px; font-weight: bold; text-align: right; color: var(--omeshicha); }
+        
+        /* 強制套用顏色與大小 */
+        .color-main-omeshicha { color: var(--omeshicha) !important; font-weight: 500; }
+        .color-date-shinsyu { color: var(--shinsyu) !important; font-weight: bold; }
+        .color-sub-small-ginnezumi { 
+            color: var(--ginnezumi) !important; 
+            font-size: 11px !important; 
+            line-height: 1.6;
+            display: block; /* 確保獨立成行 */
+            margin: 5px 0;
+        }
 
+        .letter-footer { margin-top: 30px; font-weight: bold; text-align: right; color: var(--omeshicha); }
         .footer-log { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 9px; color: #ddd; font-family: monospace; }
     </style>
 </head>
@@ -116,17 +124,17 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeLetter()">×</button>
             <div class="letter-body">
-                <span class="color-main">這是一封愛與勇氣的邀請函-`♥´-
+                <span class="color-main-omeshicha">這是一封愛與勇氣的邀請函-`♥´-
                 希望你願意來陪我過我的三十歲生日</span>
 
                 不敢相信吧，這是我寄出的信
                 身為一個I到不行的人，覺得30歲了好像應該做點大事?!
                 畢竟一直嘻P笑臉所以現在才只有文字邀請
-                <span class="color-sub-small">正式邀請函會在4月初送出...</span>
+                <span class="color-sub-small-ginnezumi">正式邀請函會在4月初送出...</span>
 
                 礙於我的朋友們，沒有錯就是現在在閱讀這封信的你!
                 可能會不小心飛出國，又可能是大忙人行程已滿檔
-                因此我想先預約下你的 <span class="color-date">4/18(六) 19:00-21:00</span>
+                因此我想先預約下你的 <span class="color-date-shinsyu">4/18(六) 19:00-21:00</span>
                 為甚麼不是生日那週，是因為追星的朋友們基本上已被各自的本命預約了，搶不贏ㅇㅇ
 
                 想了很久要用怎樣的形式舉辦
@@ -134,7 +142,7 @@
                 辦個1:1PHOTO EVENT(簽售)的形式，感覺很適合
                 給不追星的朋友來個白話文(會跟我拍拍立得還有跟我講一分鐘的話)
                 給追星的朋友們 對 就是那樣的形式 有簽售道具 沒有一堆禁令
-                <span class="color-sub-small">可能20-30人左右(不確定我有這麼多朋友)
+                <span class="color-sub-small-ginnezumi">可能20-30人左右(不確定我有這麼多朋友)
                 你收到這封信，代表你也在我過去的人生裡有佔據一片拼圖</span>
 
                 不追星的朋友們請不要緊張
@@ -144,11 +152,11 @@
 
                 至於追星的朋友們 你們應該很會玩了 我不擔心(ง˙∇˙)ว
 
-                此封信為不專業統計，如果你可以的話請先留下時間，有提問都可以發問!
+                此封信為不專業統計，如果可以的話請先留下時間
                 白話文就是 來陪我過生日吧
                 讓我更新一下 關於我跟你們 新的故事
             </div>
-            <div class="letter-footer">我很期待 <span class="color-main">٩˙ヘ˙و</span></div>
+            <div class="letter-footer">我很期待 <span class="color-main-omeshicha">٩˙ヘ˙و</span></div>
         </div>
     </div>
 
