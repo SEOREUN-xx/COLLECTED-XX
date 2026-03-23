@@ -8,9 +8,10 @@
     <style>
         :root {
             --bg-color: #F7F8F8;
-            --omeshicha: #43676B; 
-            --ginnezumi: #91989F; 
-            --shinsyu: #D93444;   
+            --omeshicha: #43676B; /* 御召茶 */
+            --ginnezumi: #91989F; /* 銀鼠 */
+            --shinsyu: #D93444;   /* 真朱 */
+            --soft-black: #333333; /* 淡黑色 */
         }
 
         body, html {
@@ -22,7 +23,6 @@
             overflow: hidden; letter-spacing: 1.5px;
         }
 
-        /* 攝影對焦框 */
         .focus-bracket {
             position: absolute; width: 35px; height: 35px; border: 1px solid #D1DBDC;
             animation: breathe 4s infinite ease-in-out; z-index: 5;
@@ -37,14 +37,9 @@
             50% { opacity: 0.9; transform: scale(1.05); }
         }
 
-        /* 強制垂直排列 */
         .main-content { 
-            text-align: center; 
-            z-index: 10; 
-            transition: filter 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center; z-index: 10; transition: filter 0.5s ease;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         .blurred { filter: blur(8px); pointer-events: none; }
@@ -55,33 +50,18 @@
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* 倒數計時器容器 */
-        #countdown { 
-            display: flex; 
-            gap: 15px; 
-            justify-content: center; 
-            margin-bottom: 40px; /* 與下方按鈕保持距離 */
-        }
+        #countdown { display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; }
         .time-unit { display: flex; flex-direction: column; width: 65px; }
         .number { font-size: 2rem; font-weight: 100; }
         .label { font-size: 9px; color: var(--ginnezumi); text-transform: uppercase; }
 
-        /* OPEN 按鈕樣式 */
         .open-btn {
-            background: none; 
-            border: 1px solid var(--omeshicha); 
-            color: var(--omeshicha);
-            padding: 14px 45px; 
-            font-size: 13px; 
-            letter-spacing: 5px;
-            cursor: pointer; 
-            transition: all 0.4s ease; 
-            border-radius: 30px;
-            display: inline-block;
+            background: none; border: 1px solid var(--omeshicha); color: var(--omeshicha);
+            padding: 14px 45px; font-size: 13px; letter-spacing: 5px;
+            cursor: pointer; transition: all 0.4s ease; border-radius: 30px;
         }
         .open-btn:hover { background: var(--omeshicha); color: white; }
 
-        /* 彈出邀請函 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(247, 248, 248, 0.98);
@@ -100,9 +80,11 @@
 
         .close-btn { position: sticky; top: 0; float: right; background: none; border: none; font-size: 24px; cursor: pointer; color: #ccc; }
 
-        .letter-body { font-size: 14px; color: var(--omeshicha); white-space: pre-line; }
-        .highlight-red { color: var(--shinsyu); font-weight: bold; }
-        .highlight-gray { color: var(--ginnezumi); }
+        /* 信件內文樣式調整 */
+        .letter-body { font-size: 14px; color: var(--soft-black); white-space: pre-line; }
+        .color-main { color: var(--omeshicha); }
+        .color-date { color: var(--shinsyu); font-weight: bold; }
+        .color-sub-small { color: var(--ginnezumi); font-size: 12px; } /* 灰色且字小 */
         .letter-footer { margin-top: 30px; font-weight: bold; text-align: right; color: var(--omeshicha); }
 
         .footer-log { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 9px; color: #ddd; font-family: monospace; }
@@ -134,17 +116,17 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeLetter()">×</button>
             <div class="letter-body">
-                這是一封愛與勇氣的邀請函-`♥´-
-                希望你願意來陪我過我的三十歲生日
+                <span class="color-main">這是一封愛與勇氣的邀請函-`♥´-
+                希望你願意來陪我過我的三十歲生日</span>
 
                 不敢相信吧，這是我寄出的信
                 身為一個I到不行的人，覺得30歲了好像應該做點大事?!
                 畢竟一直嘻P笑臉所以現在才只有文字邀請
-                <span class="highlight-gray">正式邀請函會在4月初送出...</span>
+                <span class="color-sub-small">正式邀請函會在4月初送出...</span>
 
                 礙於我的朋友們，沒有錯就是現在在閱讀這封信的你!
                 可能會不小心飛出國，又可能是大忙人行程已滿檔
-                因此我想先預約下你的 <span class="highlight-red">4/18(六) 19:00-21:00</span>
+                因此我想先預約下你的 <span class="color-date">4/18(六) 19:00-21:00</span>
                 為甚麼不是生日那週，是因為追星的朋友們基本上已被各自的本命預約了，搶不贏ㅇㅇ
 
                 想了很久要用怎樣的形式舉辦
@@ -152,8 +134,8 @@
                 辦個1:1PHOTO EVENT(簽售)的形式，感覺很適合
                 給不追星的朋友來個白話文(會跟我拍拍立得還有跟我講一分鐘的話)
                 給追星的朋友們 對 就是那樣的形式 有簽售道具 沒有一堆禁令
-                <span class="highlight-gray">可能20-30人左右(不確定我有這麼多朋友)</span>
-                <span class="highlight-gray">你收到這封信，代表你也在我過去的人生裡有佔據一片拼圖</span>
+                <span class="color-sub-small">可能20-30人左右(不確定我有這麼多朋友)
+                你收到這封信，代表你也在我過去的人生裡有佔據一片拼圖</span>
 
                 不追星的朋友們請不要緊張
                 待正式邀請出來後會有官方@給你們問問題，也會有一些基本的FAQ
@@ -166,7 +148,7 @@
                 白話文就是 來陪我過生日吧
                 讓我更新一下 關於我跟你們 新的故事
             </div>
-            <div class="letter-footer">我很期待 ٩˙ヘ˙و</div>
+            <div class="letter-footer">我很期待 <span class="color-main">٩˙ヘ˙و</span></div>
         </div>
     </div>
 
