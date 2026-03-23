@@ -8,9 +8,9 @@
     <style>
         :root {
             --bg-color: #F7F8F8;
-            --omeshicha: #43676B; /* 御召茶 */
-            --ginnezumi: #91989F; /* 銀鼠 */
-            --shinsyu: #D93444;   /* 真朱 */
+            --omeshicha: #43676B; 
+            --ginnezumi: #91989F; 
+            --shinsyu: #D93444;   
         }
 
         body, html {
@@ -79,18 +79,30 @@
 
         .close-btn { position: sticky; top: 0; float: right; background: none; border: none; font-size: 24px; cursor: pointer; color: #ccc; }
 
-        /* 信件內文樣式 */
-        .letter-body { font-size: 14px; color: var(--omeshicha); white-space: pre-line; } /* 全域改為御召茶 */
-        
-        .color-main-bold { font-weight: bold; font-size: 15px; } /* 開頭加粗加亮 */
+        /* 信件內容樣式 */
+        .letter-body { font-size: 14px; color: var(--omeshicha); white-space: pre-line; }
+        .color-main-bold { font-weight: bold; font-size: 15px; }
         .color-date-shinsyu { color: var(--shinsyu) !important; font-weight: bold; }
         .color-sub-small-ginnezumi { 
             color: var(--ginnezumi) !important; 
             font-size: 11px !important; 
             line-height: 1.6;
-            display: block; 
-            margin: 5px 0;
+            display: block; margin: 5px 0;
         }
+
+        /* 調查區塊樣式 */
+        .survey-box {
+            margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ddd;
+        }
+        .input-field {
+            width: 90%; padding: 10px; margin: 15px 0; border: 1px solid #eee; background: #fdfdfd; border-radius: 10px; color: var(--omeshicha); outline: none;
+        }
+        .radio-group { margin: 15px 0; font-size: 13px; }
+        .radio-item { margin-bottom: 10px; display: block; cursor: pointer; }
+        .submit-btn {
+            background: var(--omeshicha); color: white; border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; width: 100%; font-size: 13px; letter-spacing: 2px; transition: opacity 0.3s;
+        }
+        .submit-btn:disabled { background: var(--ginnezumi); cursor: not-allowed; }
 
         .letter-footer { margin-top: 30px; font-weight: bold; text-align: right; color: var(--omeshicha); }
         .footer-log { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 9px; color: #ddd; font-family: monospace; }
@@ -153,12 +165,23 @@
                 此封信為不專業統計，如果可以的話請先留下時間
                 白話文就是 來陪我過生日吧
                 讓我更新一下 關於我跟你們 新的故事
+
+                <div class="survey-box" id="surveyArea">
+                    <p style="font-size: 13px; font-weight: bold;">[初步意願調查]</p>
+                    <input type="text" id="userName" class="input-field" placeholder="妳/你的暱稱">
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="attend" value="可以出席"> 4/18 預約成功！我會去</label>
+                        <label class="radio-item"><input type="radio" name="attend" value="無法出席"> 真的很可惜，那天無法出席</label>
+                    </div>
+                    <button class="submit-btn" id="submitBtn" onclick="sendToGoogleForm()">確認送出回覆</button>
+                    <p id="msg" style="font-size: 11px; color: var(--ginnezumi); margin-top: 15px; display: none; text-align: center;"></p>
+                </div>
             </div>
             <div class="letter-footer">我很期待 ٩˙ヘ˙و</div>
         </div>
     </div>
 
-    <div class="footer-log">STATUS: COLLECTING... | VERSION: 30.0 | WWW.SEOREUN-XX.COM</div>
+    <div class="footer-log">STATUS: DATA_CONNECTED | VERSION: 30.0 | WWW.SEOREUN-XX.COM</div>
 
     <script>
         function openLetter() {
@@ -170,6 +193,41 @@
             document.getElementById('mainSection').classList.remove('blurred');
         }
 
+        // 自動串接 Google 表單邏輯
+        function sendToGoogleForm() {
+            const name = document.getElementById('userName').value;
+            const attend = document.querySelector('input[name="attend"]:checked')?.value;
+            const submitBtn = document.getElementById('submitBtn');
+            const msgBox = document.getElementById('msg');
+
+            if (!name || !attend) {
+                alert("暱稱跟意願都要填寫喔！");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            msgBox.style.display = "block";
+            msgBox.innerText = "正在同步數據至後台...";
+
+            // Google 表單參數
+            const formID = "1FAIpQLScdv66XoM3aD5028u7u_1O530zP9qG_m063S8o6z3X9OIn85g"; // 妳的表單 ID
+            const entryName = "entry.340321271";  // 暱稱欄位 ID
+            const entryAttend = "entry.244342417"; // 意願欄位 ID
+            
+            const baseURL = `https://docs.google.com/forms/d/e/${formID}/formResponse`;
+            const submitURL = `${baseURL}?${entryName}=${encodeURIComponent(name)}&${entryAttend}=${encodeURIComponent(attend)}&submit=Submit`;
+
+            // 使用隱形圖片發送請求（避免跨域問題）
+            const img = new Image();
+            img.src = submitURL;
+
+            setTimeout(() => {
+                msgBox.innerText = "回覆已記錄！謝謝妳/你 ❤️";
+                msgBox.style.color = "#43676B";
+            }, 1000);
+        }
+
+        // 倒數計時
         const targetDate = new Date("April 18, 2026 19:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
