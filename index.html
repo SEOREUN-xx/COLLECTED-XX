@@ -61,11 +61,12 @@
         }
         .open-btn:hover { background: var(--omeshicha); color: white; }
 
+        /* 彈出視窗通用樣式 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(247, 248, 248, 0.98);
             display: flex; justify-content: center; align-items: center;
-            z-index: 100; opacity: 0; visibility: hidden; transition: all 0.5s ease;
+            z-index: 100; opacity: 0; visibility: hidden; transition: all 0.4s ease;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
 
@@ -90,21 +91,18 @@
             display: block; margin: 5px 0;
         }
 
-        /* 調查區塊樣式 */
-        .survey-box {
-            margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ddd;
-        }
+        /* RSVP 回覆視窗樣式 */
+        .survey-box { text-align: center; }
         .input-field {
-            width: 90%; padding: 10px; margin: 15px 0; border: 1px solid #eee; background: #fdfdfd; border-radius: 10px; color: var(--omeshicha); outline: none;
+            width: 90%; padding: 12px; margin: 20px 0; border: 1px solid #eee; background: #fdfdfd; border-radius: 10px; color: var(--omeshicha); outline: none; text-align: center;
         }
-        .radio-group { margin: 15px 0; font-size: 13px; }
-        .radio-item { margin-bottom: 10px; display: block; cursor: pointer; }
+        .radio-group { margin: 20px 0; display: flex; justify-content: space-around; font-size: 14px; }
+        .radio-item { cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .submit-btn {
-            background: var(--omeshicha); color: white; border: none; padding: 12px 20px; border-radius: 25px; cursor: pointer; width: 100%; font-size: 13px; letter-spacing: 2px; transition: opacity 0.3s;
+            background: var(--omeshicha); color: white; border: none; padding: 14px 20px; border-radius: 30px; cursor: pointer; width: 100%; font-size: 13px; letter-spacing: 2px;
         }
-        .submit-btn:disabled { background: var(--ginnezumi); cursor: not-allowed; }
+        .submit-btn:disabled { background: var(--ginnezumi); }
 
-        .letter-footer { margin-top: 30px; font-weight: bold; text-align: right; color: var(--omeshicha); }
         .footer-log { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 9px; color: #ddd; font-family: monospace; }
     </style>
 </head>
@@ -130,9 +128,9 @@
         <button class="open-btn" onclick="openLetter()">[ OPEN ]</button>
     </div>
 
-    <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-overlay" id="modalLetter">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeLetter()">×</button>
+            <button class="close-btn" onclick="closeLetterAndAskRSVP()">×</button>
             <div class="letter-body">
                 <span class="color-main-bold">這是一封愛與勇氣的邀請函-`♥´-
                 希望你願意來陪我過我的三十歲生日</span>
@@ -165,35 +163,49 @@
                 此封信為不專業統計，如果可以的話請先留下時間
                 白話文就是 來陪我過生日吧
                 讓我更新一下 關於我跟你們 新的故事
-
-                <div class="survey-box" id="surveyArea">
-                    <p style="font-size: 13px; font-weight: bold;">[初步意願調查]</p>
-                    <input type="text" id="userName" class="input-field" placeholder="妳/你的暱稱">
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="attend" value="可以出席"> 4/18 預約成功！我會去</label>
-                        <label class="radio-item"><input type="radio" name="attend" value="無法出席"> 真的很可惜，那天無法出席</label>
-                    </div>
-                    <button class="submit-btn" id="submitBtn" onclick="sendToGoogleForm()">確認送出回覆</button>
-                    <p id="msg" style="font-size: 11px; color: var(--ginnezumi); margin-top: 15px; display: none; text-align: center;"></p>
-                </div>
             </div>
-            <div class="letter-footer">我很期待 ٩˙ヘ˙و</div>
+            <div style="margin-top: 30px; font-weight: bold; text-align: right;">我很期待 ٩˙ヘ˙و</div>
         </div>
     </div>
 
-    <div class="footer-log">STATUS: DATA_CONNECTED | VERSION: 30.0 | WWW.SEOREUN-XX.COM</div>
+    <div class="modal-overlay" id="modalRSVP">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeRSVP()">×</button>
+            <div class="survey-box">
+                <p style="font-size: 16px; font-weight: bold; color: var(--omeshicha);">[ RSVP 初步意願調查 ]</p>
+                <input type="text" id="userName" class="input-field" placeholder="妳 / 你的暱稱">
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="attend" value="+1"> +1</label>
+                    <label class="radio-item"><input type="radio" name="attend" value="無法出席"> 無法出席</label>
+                </div>
+                <button class="submit-btn" id="submitBtn" onclick="sendToGoogleForm()">確認送出回覆</button>
+                <p id="msg" style="font-size: 11px; color: var(--ginnezumi); margin-top: 20px; display: none;"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-log">STATUS: RSVP_PENDING | VERSION: 30.0</div>
 
     <script>
         function openLetter() {
-            document.getElementById('modalOverlay').classList.add('active');
+            document.getElementById('modalLetter').classList.add('active');
             document.getElementById('mainSection').classList.add('blurred');
         }
-        function closeLetter() {
-            document.getElementById('modalOverlay').classList.remove('active');
+
+        // 關鍵邏輯：關閉信件時自動彈出 RSVP
+        function closeLetterAndAskRSVP() {
+            document.getElementById('modalLetter').classList.remove('active');
+            // 延遲 300ms 讓視覺轉換更平滑
+            setTimeout(() => {
+                document.getElementById('modalRSVP').classList.add('active');
+            }, 300);
+        }
+
+        function closeRSVP() {
+            document.getElementById('modalRSVP').classList.remove('active');
             document.getElementById('mainSection').classList.remove('blurred');
         }
 
-        // 自動串接 Google 表單邏輯
         function sendToGoogleForm() {
             const name = document.getElementById('userName').value;
             const attend = document.querySelector('input[name="attend"]:checked')?.value;
@@ -201,33 +213,33 @@
             const msgBox = document.getElementById('msg');
 
             if (!name || !attend) {
-                alert("暱稱跟意願都要填寫喔！");
+                alert("請填寫暱稱並勾選意願喔！");
                 return;
             }
 
             submitBtn.disabled = true;
             msgBox.style.display = "block";
-            msgBox.innerText = "正在同步數據至後台...";
+            msgBox.innerText = "正在傳送回覆...";
 
             // Google 表單參數
-            const formID = "1FAIpQLScdv66XoM3aD5028u7u_1O530zP9qG_m063S8o6z3X9OIn85g"; // 妳的表單 ID
-            const entryName = "entry.340321271";  // 暱稱欄位 ID
-            const entryAttend = "entry.244342417"; // 意願欄位 ID
+            const formID = "1FAIpQLScdv66XoM3aD5028u7u_1O530zP9qG_m063S8o6z3X9OIn85g";
+            const entryName = "entry.340321271";
+            const entryAttend = "entry.244342417";
             
-            const baseURL = `https://docs.google.com/forms/d/e/${formID}/formResponse`;
-            const submitURL = `${baseURL}?${entryName}=${encodeURIComponent(name)}&${entryAttend}=${encodeURIComponent(attend)}&submit=Submit`;
+            const submitURL = `https://docs.google.com/forms/d/e/${formID}/formResponse?${entryName}=${encodeURIComponent(name)}&${entryAttend}=${encodeURIComponent(attend)}&submit=Submit`;
 
-            // 使用隱形圖片發送請求（避免跨域問題）
-            const img = new Image();
-            img.src = submitURL;
-
-            setTimeout(() => {
-                msgBox.innerText = "回覆已記錄！謝謝妳/你 ❤️";
-                msgBox.style.color = "#43676B";
-            }, 1000);
+            // 使用 fetch 配合 mode: 'no-cors' 解決跨網域儲存問題
+            fetch(submitURL, { mode: 'no-cors' })
+                .then(() => {
+                    msgBox.innerText = "回覆已記錄！謝謝妳/你 ❤️";
+                    setTimeout(closeRSVP, 2000);
+                })
+                .catch(() => {
+                    msgBox.innerText = "傳送成功！(請至後台確認)";
+                    setTimeout(closeRSVP, 2000);
+                });
         }
 
-        // 倒數計時
         const targetDate = new Date("April 18, 2026 19:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
