@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>CLAIRE 30th BD | [SEOREUN-xx]</title>
+    <meta property="og:title" content="CLAIRE 30th BD | [COLLECTED : XX]">
+    <meta property="og:description" content="這是一封關於愛與勇氣的邀請函。系統重啟中，倒數計時開始。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.seoreun-xx.com">
+    <meta property="og:image" content="https://raw.githubusercontent.com/你的帳號/你的專案名/main/preview.jpg">
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #1a1a1a;
+            --text-sub: #888888;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            letter-spacing: 1.5px;
+        }
+
+        /* 攝影對焦框呼吸動畫 */
+        .focus-bracket {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border: 1px solid #f0f0f0;
+            animation: breathe 4s infinite ease-in-out;
+        }
+        .top-left { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+        .top-right { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+        .bottom-left { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+        .bottom-right { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 0 20px;
+        }
+
+        /* 標題一：CLAIRE 30th BD */
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin: 0 0 10px 0;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* 標題二：[COLLECTED : XX] (REBOOT ver.) PHOTO EVENT */
+        .sub-header {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-main);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* 標題三：cooming soon.... */
+        .status-msg {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            animation: blink 2.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* 倒數計時器 */
+        #countdown {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            width: 70px;
+        }
+
+        .number {
+            font-size: 2.2rem;
+            font-weight: 100;
+            margin-bottom: 5px;
+        }
+
+        .label {
+            font-size: 9px;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-log {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 9px;
+            color: #eee;
+            font-family: monospace;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; letter-spacing: 3px; }
+            .sub-header { font-size: 0.7rem; letter-spacing: 1px; }
+            .number { font-size: 1.8rem; }
+            .time-unit { width: 55px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="focus-bracket top-left"></div>
+    <div class="focus-bracket top-right"></div>
+    <div class="focus-bracket bottom-left"></div>
+    <div class="focus-bracket bottom-right"></div>
+
+    <div class="container">
+        <h1>CLAIRE 30th BD</h1>
+        <div class="sub-header">[COLLECTED : XX] (REBOOT ver.) PHOTO EVENT</div>
+        <div class="status-msg">cooming soon....</div>
+
+        <div id="countdown">
+            <div class="time-unit">
+                <span class="number" id="days">00</span>
+                <span class="label">Days</span>
+            </div>
+            <div class="time-unit">
+                <span class="number" id="hours">00</span>
+                <span class="label">Hours</span>
+            </div>
+            <div class="time-unit">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Mins</span>
+            </div>
+            <div class="time-unit">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Secs</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-log">
+        STATUS: COLLECTING... | VERSION: 30.0 | WWW.SEOREUN-XX.COM
+    </div>
+
+    <script>
+        // 設定目標日期：2026年4月18日 19:00:00
+        const targetDate = new Date("April 18, 2026 19:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0"+(d<0?0:d) : d;
+            document.getElementById("hours").innerText = h < 10 ? "0"+(h<0?0:h) : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0"+(m<0?0:m) : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0"+(s<0?0:s) : s;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.querySelector(".status-msg").innerText = "EVENT LIVE";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
