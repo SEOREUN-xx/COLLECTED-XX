@@ -61,12 +61,11 @@
         }
         .open-btn:hover { background: var(--omeshicha); color: white; }
 
-        /* 彈出視窗通用樣式 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(247, 248, 248, 0.98);
             display: flex; justify-content: center; align-items: center;
-            z-index: 100; opacity: 0; visibility: hidden; transition: all 0.4s ease;
+            z-index: 100; opacity: 0; visibility: hidden; transition: all 0.5s ease;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
 
@@ -80,7 +79,6 @@
 
         .close-btn { position: sticky; top: 0; float: right; background: none; border: none; font-size: 24px; cursor: pointer; color: #ccc; }
 
-        /* 信件內容樣式 */
         .letter-body { font-size: 14px; color: var(--omeshicha); white-space: pre-line; }
         .color-main-bold { font-weight: bold; font-size: 15px; }
         .color-date-shinsyu { color: var(--shinsyu) !important; font-weight: bold; }
@@ -90,18 +88,6 @@
             line-height: 1.6;
             display: block; margin: 5px 0;
         }
-
-        /* RSVP 回覆視窗樣式 */
-        .survey-box { text-align: center; }
-        .input-field {
-            width: 90%; padding: 12px; margin: 20px 0; border: 1px solid #eee; background: #fdfdfd; border-radius: 10px; color: var(--omeshicha); outline: none; text-align: center;
-        }
-        .radio-group { margin: 20px 0; display: flex; justify-content: space-around; font-size: 14px; }
-        .radio-item { cursor: pointer; display: flex; align-items: center; gap: 8px; }
-        .submit-btn {
-            background: var(--omeshicha); color: white; border: none; padding: 14px 20px; border-radius: 30px; cursor: pointer; width: 100%; font-size: 13px; letter-spacing: 2px;
-        }
-        .submit-btn:disabled { background: var(--ginnezumi); }
 
         .footer-log { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 9px; color: #ddd; font-family: monospace; }
     </style>
@@ -130,14 +116,14 @@
 
     <div class="modal-overlay" id="modalLetter">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeLetterAndAskRSVP()">×</button>
+            <button class="close-btn" onclick="closeLetter()">×</button>
             <div class="letter-body">
                 <span class="color-main-bold">這是一封愛與勇氣的邀請函-`♥´-
                 希望你願意來陪我過我的三十歲生日</span>
 
                 不敢相信吧，這是我寄出的信
                 身為一個I到不行的人，覺得30歲了好像應該做點大事?!
-                畢竟一直嘻P笑臉所以現在才只有文字邀請
+                畢際一直嘻P笑臉所以現在才只有文字邀請
                 <span class="color-sub-small-ginnezumi">正式邀請函會在4月初送出...</span>
 
                 礙於我的朋友們，沒有錯就是現在在閱讀這封信的你!
@@ -168,23 +154,7 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="modalRSVP">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeRSVP()">×</button>
-            <div class="survey-box">
-                <p style="font-size: 16px; font-weight: bold; color: var(--omeshicha);">[ RSVP 初步意願調查 ]</p>
-                <input type="text" id="userName" class="input-field" placeholder="妳 / 你的暱稱">
-                <div class="radio-group">
-                    <label class="radio-item"><input type="radio" name="attend" value="+1"> +1</label>
-                    <label class="radio-item"><input type="radio" name="attend" value="無法出席"> 無法出席</label>
-                </div>
-                <button class="submit-btn" id="submitBtn" onclick="sendToGoogleForm()">確認送出回覆</button>
-                <p id="msg" style="font-size: 11px; color: var(--ginnezumi); margin-top: 20px; display: none;"></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-log">STATUS: RSVP_PENDING | VERSION: 30.0</div>
+    <div class="footer-log">STATUS: DEPLOYED | VERSION: 30.0</div>
 
     <script>
         function openLetter() {
@@ -192,52 +162,9 @@
             document.getElementById('mainSection').classList.add('blurred');
         }
 
-        // 關鍵邏輯：關閉信件時自動彈出 RSVP
-        function closeLetterAndAskRSVP() {
+        function closeLetter() {
             document.getElementById('modalLetter').classList.remove('active');
-            // 延遲 300ms 讓視覺轉換更平滑
-            setTimeout(() => {
-                document.getElementById('modalRSVP').classList.add('active');
-            }, 300);
-        }
-
-        function closeRSVP() {
-            document.getElementById('modalRSVP').classList.remove('active');
             document.getElementById('mainSection').classList.remove('blurred');
-        }
-
-        function sendToGoogleForm() {
-            const name = document.getElementById('userName').value;
-            const attend = document.querySelector('input[name="attend"]:checked')?.value;
-            const submitBtn = document.getElementById('submitBtn');
-            const msgBox = document.getElementById('msg');
-
-            if (!name || !attend) {
-                alert("請填寫暱稱並勾選意願喔！");
-                return;
-            }
-
-            submitBtn.disabled = true;
-            msgBox.style.display = "block";
-            msgBox.innerText = "正在傳送回覆...";
-
-            // Google 表單參數
-            const formID = "1FAIpQLScdv66XoM3aD5028u7u_1O530zP9qG_m063S8o6z3X9OIn85g";
-            const entryName = "entry.340321271";
-            const entryAttend = "entry.244342417";
-            
-            const submitURL = `https://docs.google.com/forms/d/e/${formID}/formResponse?${entryName}=${encodeURIComponent(name)}&${entryAttend}=${encodeURIComponent(attend)}&submit=Submit`;
-
-            // 使用 fetch 配合 mode: 'no-cors' 解決跨網域儲存問題
-            fetch(submitURL, { mode: 'no-cors' })
-                .then(() => {
-                    msgBox.innerText = "回覆已記錄！謝謝妳/你 ❤️";
-                    setTimeout(closeRSVP, 2000);
-                })
-                .catch(() => {
-                    msgBox.innerText = "傳送成功！(請至後台確認)";
-                    setTimeout(closeRSVP, 2000);
-                });
         }
 
         const targetDate = new Date("April 18, 2026 19:00:00").getTime();
