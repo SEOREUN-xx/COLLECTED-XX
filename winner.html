@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>得獎者名單 — CLAIRE 30TH BD</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;
+  --fg:#1a1a1a;
+  --teal:#37656D;
+  --teal-dark:#2a4f56;
+  --teal-light:#edf3f4;
+  --muted:#888;
+  --border:#e0e0e0;
+  --border-light:#ebebeb;
+  --label:#555;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:13px;
+  line-height:1.7;
+  min-height:100vh;
+}
+header{
+  background:var(--teal);
+  padding:0 40px;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.header-left{
+  font-size:17px;font-weight:400;letter-spacing:0.06em;
+  color:#fff;font-family:'Noto Serif TC',serif;
+}
+.header-right{
+  font-size:11px;letter-spacing:0.14em;color:rgba(255,255,255,0.75);
+  font-weight:400;text-transform:uppercase;
+}
+.hero{
+  background:var(--teal);
+  padding:48px 40px 40px;
+  text-align:center;
+}
+.hero .event-tag{
+  font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.6);
+  text-transform:uppercase;margin-bottom:10px;
+}
+.hero h1{
+  font-size:clamp(20px,4vw,32px);
+  font-weight:400;color:#fff;
+  font-family:'Noto Serif TC',serif;
+  letter-spacing:0.08em;
+  line-height:1.4;
+  margin-bottom:8px;
+}
+.info-wrap{
+  max-width:720px;margin:0 auto;padding:40px 40px 0;
+}
+.info-block{margin-bottom:32px}
+.info-block .info-num{
+  font-size:10px;letter-spacing:0.18em;color:var(--teal);
+  text-transform:uppercase;margin-bottom:6px;font-weight:500;
+}
+.info-block h2{
+  font-size:14px;font-weight:500;letter-spacing:0.06em;
+  color:var(--fg);margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border-light);
+}
+.info-block p{
+  font-size:12px;color:var(--label);line-height:2;letter-spacing:0.03em;
+}
+.info-block .highlight{color:var(--teal);font-weight:500}
+
+/* ─── TABLE 置中小型 ─── */
+.table-wrap{
+  max-width:720px;margin:0 auto;padding:0 40px 60px;
+}
+.table-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:16px;
+}
+.table-header .t-title{font-size:14px;font-weight:500;letter-spacing:0.06em}
+.table-header .t-count{font-size:11px;color:var(--muted);letter-spacing:0.08em}
+
+.table-inner{
+  display:flex;
+  justify-content:center;
+}
+table{
+  width:360px;
+  border-collapse:collapse;
+  font-size:12px;
+}
+thead tr{background:var(--teal)}
+thead th{
+  padding:8px 14px;
+  color:rgba(255,255,255,0.85);
+  font-weight:400;
+  letter-spacing:0.1em;
+  font-size:10px;
+  text-transform:uppercase;
+}
+.th-no{width:50px;text-align:center}
+.th-name{text-align:center}
+.th-num{width:80px;text-align:center}
+tbody tr{
+  border-bottom:1px solid var(--border-light);
+  transition:background 0.15s;
+}
+tbody tr:hover{background:var(--teal-light)}
+.td-no{
+  text-align:center;padding:9px 14px;
+  font-size:11px;color:var(--muted);letter-spacing:0.06em;
+}
+.td-name{
+  text-align:center;padding:9px 14px;
+  font-size:12px;color:var(--fg);letter-spacing:0.04em;
+}
+.td-num{
+  text-align:center;padding:9px 14px;
+  font-size:12px;color:var(--teal);
+  font-weight:500;letter-spacing:0.1em;
+}
+
+.notice-wrap{
+  max-width:720px;margin:0 auto;padding:0 40px 48px;
+}
+.notice-box{
+  background:var(--teal-light);
+  border-left:3px solid var(--teal);
+  padding:16px 20px;
+  font-size:12px;color:var(--label);
+  line-height:2;letter-spacing:0.03em;
+}
+footer{
+  background:var(--teal);padding:18px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer span{font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:0.08em}
+@media(max-width:768px){
+  header{padding:0 20px}
+  .hero{padding:36px 20px 32px}
+  .info-wrap,.table-wrap,.notice-wrap{padding-left:20px;padding-right:20px}
+  table{width:100%}
+  footer{padding:16px 20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">SEOREUN-xx</div>
+  <div class="header-right">CLAIRE 30TH BD</div>
+</header>
+
+<div class="hero">
+  <div class="event-tag">WINNER ANNOUNCEMENT &nbsp;·&nbsp; 得獎者名單宣布</div>
+  <h1>[COLLECTED : XX] (REBOOT ver.)<br>1:1 PHOTO EVENT in TAIPEI</h1>
+</div>
+
+<div class="info-wrap">
+  <div class="info-block">
+    <div class="info-num">01 &nbsp;/&nbsp; SHIPPING</div>
+    <h2>發貨說明 &nbsp;Shipping Instructions</h2>
+    <p>
+      所有透過本活動訂購的專輯將分為中獎者與落選者進行分開發貨。<br>
+      <span class="highlight">中獎者</span> &nbsp;—&nbsp; 活動當天現場領取<br>
+      <span class="highlight">落選者</span> &nbsp;—&nbsp; 活動結束後發貨，可能需要 <span class="highlight">30 個以上的工作日</span>（不包含週末和國定假日）
+    </p>
+  </div>
+  <div class="info-block">
+    <div class="info-num">02 &nbsp;/&nbsp; DATE</div>
+    <h2>活動日期 &nbsp;Event Dates</h2>
+    <p>
+      <span class="highlight">2026年 04月 18日（六）19:00（TST）</span><br>
+      入場、識別方式和活動期間可能會根據現場情況而改變。
+    </p>
+  </div>
+  <div class="info-block">
+    <div class="info-num">03 &nbsp;/&nbsp; LOCATION</div>
+    <h2>活動地點 &nbsp;Event Location</h2>
+    <p>
+      將單獨告知得獎者 &nbsp;Winners will be contacted individually<br>
+      中獎者將於 <span class="highlight">04月14日（二）17:00（TST）後</span> 透過應募時提供的電子郵件信箱得到通知。<br>
+      只有得獎者可在現場進行拍立得拍攝，並上台簽名。
+    </p>
+  </div>
+  <div class="info-block">
+    <div class="info-num">04 &nbsp;/&nbsp; WINNERS</div>
+    <h2>活動得獎者 &nbsp;Event Winners</h2>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <div class="table-header">
+    <span class="t-title">得獎名單</span>
+    <span class="t-count">共 20 名</span>
+  </div>
+  <div class="table-inner">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-no">序號</th>
+          <th class="th-name">暱稱</th>
+          <th class="th-num">末三碼</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td class="td-no">1</td>
+          <td class="td-name">:p</td>
+          <td class="td-num">118</td>
+        </tr>
+        <tr>
+          <td class="td-no">2</td>
+          <td class="td-name">恐龍姐姐</td>
+          <td class="td-num">127</td>
+        </tr>
+        <tr>
+          <td class="td-no">3</td>
+          <td class="td-name">FJ</td>
+          <td class="td-num">192</td>
+        </tr>
+        <tr>
+          <td class="td-no">4</td>
+          <td class="td-name">嘻嘻</td>
+          <td class="td-num">197</td>
+        </tr>
+        <tr>
+          <td class="td-no">5</td>
+          <td class="td-name">第一次參加希望能排不要太前面也不要太後面的位置下次還買謝謝🧡</td>
+          <td class="td-num">202</td>
+        </tr>
+        <tr>
+          <td class="td-no">6</td>
+          <td class="td-name">寧</td>
+          <td class="td-num">250</td>
+        </tr>
+        <tr>
+          <td class="td-no">7</td>
+          <td class="td-name">Jin</td>
+          <td class="td-num">251</td>
+        </tr>
+        <tr>
+          <td class="td-no">8</td>
+          <td class="td-name">漂亮貝比</td>
+          <td class="td-num">267</td>
+        </tr>
+        <tr>
+          <td class="td-no">9</td>
+          <td class="td-name">라이</td>
+          <td class="td-num">281</td>
+        </tr>
+        <tr>
+          <td class="td-no">10</td>
+          <td class="td-name">Sofa Lin</td>
+          <td class="td-num">332</td>
+        </tr>
+        <tr>
+          <td class="td-no">11</td>
+          <td class="td-name">Christine</td>
+          <td class="td-num">435</td>
+        </tr>
+        <tr>
+          <td class="td-no">12</td>
+          <td class="td-name">714</td>
+          <td class="td-num">472</td>
+        </tr>
+        <tr>
+          <td class="td-no">13</td>
+          <td class="td-name">星兒</td>
+          <td class="td-num">501</td>
+        </tr>
+        <tr>
+          <td class="td-no">14</td>
+          <td class="td-name">Lynne</td>
+          <td class="td-num">616</td>
+        </tr>
+        <tr>
+          <td class="td-no">15</td>
+          <td class="td-name">0</td>
+          <td class="td-num">649</td>
+        </tr>
+        <tr>
+          <td class="td-no">16</td>
+          <td class="td-name">Amy</td>
+          <td class="td-num">660</td>
+        </tr>
+        <tr>
+          <td class="td-no">17</td>
+          <td class="td-name">娘娘大人</td>
+          <td class="td-num">670</td>
+        </tr>
+        <tr>
+          <td class="td-no">18</td>
+          <td class="td-name">芃</td>
+          <td class="td-num">724</td>
+        </tr>
+        <tr>
+          <td class="td-no">19</td>
+          <td class="td-name">大寶寶</td>
+          <td class="td-num">805</td>
+        </tr>
+        <tr>
+          <td class="td-no">20</td>
+          <td class="td-name">chuchu</td>
+          <td class="td-num">982</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="notice-wrap">
+  <div class="notice-box">
+    中獎者將透過電子郵件收到通知，請留意信箱。<br>
+    如有任何疑問，請透過官方管道聯繫。&nbsp; 官方@：<strong>fy0049ktc1q</strong><br>
+    諮詢時間：週一至週五 10:00 ～ 12:00 ／ 13:00 ～ 17:00（TST）
+  </div>
+</div>
+
+<footer>
+  <span>SEOREUN-xx &nbsp;·&nbsp; COLLECTED : XX</span>
+  <span>CLAIRE 30TH BD</span>
+</footer>
+
+</body>
+</html>
