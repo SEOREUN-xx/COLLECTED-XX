@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFTER STORY — CLAIRE 30TH BD</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2d7171;
+    --yellow: #f5e642;
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --muted: #888;
+    --light: #f5f5f5;
+    --border: #e8e8e8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--teal);
+    padding: 0 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  nav span {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.12em;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--teal);
+    padding: 56px 32px 48px;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 0.08em;
+  }
+
+  .hero h1 .hl {
+    background: var(--yellow);
+    color: var(--text);
+    padding: 2px 8px;
+    font-weight: 400;
+  }
+
+  .hero-date {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.45);
+    margin-top: 16px;
+    display: block;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  /* SECTION */
+  .section {
+    padding-top: 60px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* LABEL */
+  .label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* BODY TEXT */
+  .body-text {
+    font-size: 14px;
+    color: var(--text);
+    white-space: pre-line;
+    line-height: 2;
+  }
+
+  .hl {
+    background: var(--yellow);
+    padding: 0 3px;
+    font-weight: 400;
+  }
+
+  /* CHAPTER */
+  .chapter {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* PHOTO SLIDER */
+  .slider-section {
+    padding-top: 48px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .slider-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .slider-track {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -28px;
+    padding: 0 28px 12px;
+    scrollbar-width: none;
+  }
+
+  .slider-track::-webkit-scrollbar { display: none; }
+
+  .slide {
+    flex: 0 0 auto;
+    width: clamp(220px, 62vw, 320px);
+    aspect-ratio: 4/5;
+    scroll-snap-align: start;
+    overflow: hidden;
+    background: var(--light);
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .slide-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light);
+    border: 1px dashed #ccc;
+  }
+
+  .slide-placeholder span {
+    font-size: 9px;
+    color: #aaa;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .swipe-hint {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #bbb;
+    text-transform: uppercase;
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  /* WISH */
+  .wish-section {
+    padding-top: 72px;
+    padding-bottom: 56px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-top: 60px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .wish-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .wish-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .wish-section p {
+    flex: 1;
+    font-family: 'Zen Kurenaido', 'Noto Serif TC', serif;
+    font-size: clamp(15px, 4vw, 20px);
+    font-weight: 400;
+    color: var(--text);
+    line-height: 2.6;
+    letter-spacing: 0.08em;
+  }
+
+  .wish-section p .hl {
+    background: var(--yellow);
+    padding: 0 4px;
+  }
+
+  .wish-photo {
+    flex: 0 0 auto;
+    width: clamp(130px, 35vw, 200px);
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .wish-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* CREDITS */
+  .credits-section {
+    padding-top: 56px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .credits-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .credits-list {
+    margin-top: 16px;
+  }
+
+  .cr {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    align-items: baseline;
+  }
+
+  .cr:last-child { border-bottom: none; }
+
+  .cr .role {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--teal);
+    text-transform: uppercase;
+    min-width: 48px;
+    font-weight: 500;
+    padding-top: 2px;
+  }
+
+  .cr .name {
+    color: var(--text);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 36px 24px 48px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  footer a {
+    color: var(--teal);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="./index.html">SEOREUN-xx</a>
+  <span>CLAIRE 30TH BD</span>
+</nav>
+
+<div class="hero">
+  <span class="hero-eyebrow">Special Event · In Taipei</span>
+  <h1>AFTER STORY</h1>
+  <span class="hero-date">COLLECTED : XX (REBOOT ver.) · 04.28 TODAY IS MY BIRTHDAY</span>
+</div>
+
+<main>
+
+  <!-- OPENING -->
+  <div class="section">
+    <div class="label">Opening</div>
+    <div class="body-text">謝謝所有中獎者 我的朋友們 (角色轉換中)
+從年初的起心動念到一個月前真的著手開始 嘻P笑臉還是把自己送了急件 >>>>>> <span class="hl">超皮還P</span>
+
+讓我們來回顧一下 那天發生的事情吧</div>
+  </div>
+
+  <!-- PHOTOS 1 -->
+  <div class="slider-section">
+    <div class="slider-track">
+      <div class="slide"><img src="photos/photo01.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo02.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo03.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo04.jpg" alt=""></div>
+    </div>
+    <p class="swipe-hint">swipe →</p>
+  </div>
+
+  <!-- CHECK IN -->
+  <div class="section">
+    <div class="label">01 · Check-in</div>
+    <div class="body-text"><span class="chapter">報到區 &gt;&gt;&gt;&gt;&gt;</span>身分驗證 + <span class="hl">抽號碼牌</span> 很刺激吧
+逆應援餐盒希望大家吃得開心
+前排的搖滾區一定是伸手就可以摸到壽星的距離?!</div>
+  </div>
+
+  <!-- PHOTOS 2 -->
+  <div class="slider-section">
+    <div class="slider-track">
+      <div class="slide"><img src="photos/photo05.jpg" alt=""></div>
+    </div>
+    <p class="swipe-hint">swipe →</p>
+  </div>
+
+  <!-- POLAROID -->
+  <div class="section">
+    <div class="label">02 · Polaroid Time</div>
+    <div class="body-text"><span class="chapter">POLAROID TIME &gt;&gt;&gt;&gt;&gt;</span>與大家的初次見面 <span class="hl">첫 만남은 너무 어려워</span>
+看著大家從展架冒出來的樣子很可愛</div>
+  </div>
+
+  <!-- FANSIGN -->
+  <div class="section">
+    <div class="label">03 · Fansign Time</div>
+    <div class="body-text"><span class="chapter">FANSIGN TIME &gt;&gt;&gt;&gt;&gt;</span>原本想要幫大家估卡，但一時之間忘記把貼紙貼去哪
+一分半的時間很快，大家給的挑戰我努力接~~
+<span class="hl">年末會驗收你們寫的那 24+1 件事</span></div>
+  </div>
+
+  <!-- PHOTOS 3 -->
+  <div class="slider-section">
+    <div class="slider-track">
+      <div class="slide"><img src="photos/photo06.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo07.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo08.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo09.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo10.jpg" alt=""></div>
+    </div>
+    <p class="swipe-hint">swipe →</p>
+  </div>
+
+  <!-- PHOTO TIME -->
+  <div class="section">
+    <div class="label">04 · Photo Time</div>
+    <div class="body-text"><span class="chapter">PHOTO TIME &gt;&gt;&gt;&gt;&gt;</span>新人美時期 把大家的心 <span class="hl">catch catch</span>
+在我心中你們都是最可愛的~~ reels 大公開</div>
+  </div>
+
+  <!-- PHOTOS 4 -->
+  <div class="slider-section">
+    <div class="slider-track">
+      <div class="slide"><img src="photos/photo11.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo12.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo13.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo14.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo15.jpg" alt=""></div>
+    </div>
+    <p class="swipe-hint">swipe →</p>
+  </div>
+
+  <!-- REELS VIDEO -->
+  <div class="section">
+    <div class="label">Reels</div>
+    <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:2px;overflow:hidden;background:#f5f5f5;">
+      <iframe
+        src="https://drive.google.com/file/d/1kCYfo_Kw9-bnGhZyTTgqI3rwxAF_-xhI/preview"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+        allow="autoplay"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- PHOTOS 4 -->
+  <div class="slider-section">
+    <div class="slider-track">
+      <div class="slide"><img src="photos/photo11.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo12.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo13.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo14.jpg" alt=""></div>
+      <div class="slide"><img src="photos/photo15.jpg" alt=""></div>
+    </div>
+    <p class="swipe-hint">swipe →</p>
+  </div>
+
+  <!-- WISH -->
+  <div class="wish-section">
+    <div class="wish-inner">
+      <p>生日願望一直都很簡單<br>希望我愛的人 <span class="hl">愛我的人</span><br>都能健康幸福</p>
+    </div>
+    <div class="wish-photo">
+      <img src="photos/photo16.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- CREDITS -->
+  <div class="credits-section">
+    <div class="label">Special Thanks</div>
+    <div class="credits-list">
+      <div class="cr"><span class="role">場地</span><span class="name">@kohee_official</span></div>
+      <div class="cr"><span class="role">餐盒</span><span class="name">@ahwoo.dessert</span></div>
+      <div class="cr"><span class="role">妝</span><span class="name">神仙教母 漂寶</span></div>
+      <div class="cr"><span class="role">髮</span><span class="name">@murum18_1 沛</span></div>
+      <div class="cr"><span class="role">指甲</span><span class="name">@addie_nail.c</span></div>
+      <div class="cr"><span class="role">Staff</span><span class="name">斤寶 · 踢那 · 配起</span></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>SEOREUN-xx · COLLECTED : XX · CLAIRE 30TH BD</p>
+  <p style="margin-top:10px;"><a href="./index.html">← Back to Main</a></p>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.section, .slider-section, .wish-section, .credits-section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.05 });
+  els.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
